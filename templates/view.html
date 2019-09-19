@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../../../favicon.ico">
+    <title>Home</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    
+    <!--Template based on URL below-->
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/starter-template/">
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/master3.css') }}">
+
+</head>
+
+<body>
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top">
+                <a class="navbar-brand" href="{{url_for('index')}}"><img src="static/images/logo.png" class="rounded-circle" width="80px" height="70px"></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            
+                <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{{url_for('index')}}">Home<span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                                {% if session['loggedin']==True %}
+                                <a class="nav-link" href="{{url_for('logout')}}">Logout</a>
+                                {% else %}
+                                <a class="nav-link" href="{{url_for('login')}}">Login</a>
+                                {% endif %}
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{url_for('view')}}">View Database</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="{{url_for('form')}}">Insert Into Database</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="{{url_for('team')}}">Team Members</a>
+                    </li>
+                    </ul>
+                    <form class="form-inline my-2 my-lg-0">
+                        <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-primary btn-md" type="submit">Search</button>
+                    </form>
+                </div>
+            </nav>
+
+            <section id="tabs" class="project-tab">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <nav>
+                                    <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                                        <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Athlete</a>
+                                
+                                        <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Schedule</a>
+                                        <a class="nav-item nav-link" id="nav-site-tab" data-toggle="tab" href="#nav-site" role="tab" aria-controls="nav-site" aria-selected="false">Site</a>
+                                        <a class="nav-item nav-link" id="nav-result-tab" data-toggle="tab" href="#nav-result" role="tab" aria-controls="nav-result" aria-selected="false">Result</a>
+                                        <a class="nav-item nav-link" id="nav-country-tab" data-toggle="tab" href="#nav-country" role="tab" aria-controls="nav-country" aria-selected="false">Country</a>
+                                    </div>
+                                </nav>
+                                <div class="tab-content" id="nav-tabContent">
+                                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                                        <table class="table" cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Athlete_ID</th>
+                                                    <th>Athlete_FirstName</th>
+                                                    <th>Athlete_LastName</th>
+                                                    <th>Athlete_DOB</th>
+                                                    <th>Athlete_Gender</th>
+                                                    <th>Country_Code</th>
+        
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for item in Athlete_data %}
+                                                <tr>
+                                                    <td>{{item['Athlete_ID']}}</td>
+                                                    <td>{{item['Athlete_FirstName']}}</td>
+                                                    <td>{{item['Athlete_LastName']}}</td>
+                                                    <td>{{item['Athlete_DOB']}}</td>
+                                                    <td>{{item['Athlete_Gender']}}</td>
+                                                    <td>{{item['Country_Code']}}</td>
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                   
+                                    <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                                        <table class="table" cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Athlete_ID</th>
+                                                    <th>Date</th>
+                                                    <th>Time</th>
+                                                    <th>Venue</th>
+                                                    <th>Sports_Name</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for item in Schedule_data %}
+                                                <tr>
+                                                    <td>{{item["Athlete_ID"]}}</td>
+                                                    <td>{{item["Date"]}}</td>
+                                                    <td>{{item["Time"]}}</td>
+                                                    <td>{{item["Venue"]}}</td>
+                                                    <td>{{item['Sports_Name']}}</td>
+                                                    
+                                                </tr>
+                                                {% endfor %}
+                                               
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="tab-pane fade" id="nav-site" role="tabpanel" aria-labelledby="nav-site-tab">
+                                        <table class="table" cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Country_Code</th>
+                                                    <th>Year</th>
+                                                    <th>City</th>
+                                                    <th>Season</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for item in Site_data %}
+                                                <tr>
+                                                    <td>{{item["Country_Code"]}}</td>
+                                                    <td>{{item["Year"]}}</td>
+                                                    <td>{{item["City"]}}</td>
+                                                    <td>{{item["Season"]}}</td>
+                                
+                                                </tr>
+                                                {% endfor %}
+                                               
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="tab-pane fade" id="nav-result" role="tabpanel" aria-labelledby="nav-result-tab">
+                                        <table class="table" cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Athlete_ID</th>
+                                                    <th>Medal_Type</th>
+                                                    <th>Sports_Name</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for item in Result_data %}
+                                                <tr>
+                                                    <td>{{item["Athlete_ID"]}}</td>
+                                                    <td>{{item["Medal_Type"]}}</td>
+                                                    <td>{{item["Sports_Name"]}}</td>
+                                                    
+                                                </tr>
+                                                {% endfor %}
+                                               
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="tab-pane fade" id="nav-country" role="tabpanel" aria-labelledby="nav-country-tab">
+                                        <table class="table" cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Country_Code</th>
+                                                    <th>Country_Name</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for item in Country_data %}
+                                                <tr>
+                                                    <td>{{item["Country_Code"]}}</td>
+                                                    <td>{{item["Country_Name"]}}</td>
+                                                    
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+    
+</body>
+</html>

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../../../favicon.ico">
+    <title>Home</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    
+    <!--Template based on URL below-->
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/starter-template/">
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" >
+
+    <!-- Place your stylesheet here-->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/master2.css') }}">
+ 
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.min.css" />
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js"></script>
+
+<script>
+$(document).ready(function () {
+        $('#datepicker').datepicker({
+          uiLibrary: 'bootstrap'
+        });
+        $('#date').datepicker({
+          uiLibrary: 'bootstrap' 
+        });
+        
+    });
+    </script>
+
+</head>
+
+<body>
+
+
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top">
+                <a class="navbar-brand" href="{{url_for('index')}}"><img src="static/images/logo.png" class="rounded-circle" width="80px" height="70px"></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            
+                <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{{url_for('index')}}">Home<span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                                {% if session['loggedin']==True %}
+                                <a class="nav-link" href="{{url_for('logout')}}">Logout</a>
+                                {% else %}
+                                <a class="nav-link" href="{{url_for('login')}}">Login</a>
+                                {% endif %}
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{url_for('view')}}">View Database</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="{{url_for('form')}}">Insert Into Database</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="{{url_for('team')}}">Team Members</a>
+                    </li>
+                    </ul>
+                    <form class="form-inline my-2 my-lg-0">
+                        <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-primary btn-md" type="submit">Search</button>
+                    </form>
+                </div>
+            </nav>
+
+<div class="image" align="center">
+<br><br><br><br><br>
+        <form class="form-horizontal" role="form" action="{{url_for('post')}}" method='post' >
+        
+                <h6 class="display-4">Registration</h6>
+                <div id="profile_details">
+                        <div class="form-group">
+                                <label  class="col-sm-3 control-label">ID</label>
+                                <div class="col-sm-9">
+                                    <input type="text"  placeholder="ID" class="form-control" id="fname" name='ID' autofocus>
+                                </div>
+                            </div>
+                
+                <div class="form-group">
+                    <label  class="col-sm-3 control-label">First Name</label>
+                    <div class="col-sm-9">
+                        <input type="text"  placeholder="First Name" class="form-control" id="fname" name='fname' autofocus>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label  class="col-sm-3 control-label">Last Name</label>
+                    <div class="col-sm-9">
+                        <input type="text"  placeholder="Last Name" class="form-control" id="lname" name='lname' autofocus>
+                    </div>
+                </div>
+                <div class="form-group">
+                        <label  class="col-sm-3 control-label">Date Of Birth</label>
+                        <div class="col-sm-9">
+                    <input  type="text" id="datepicker" placeholder="MM/DD/YYYY" autofocus class="form-control" name='date1'>
+                    
+                </div>
+            </div>
+                <div class="form-group">
+                    <label  class="col-sm-3 control-label">Gender</label>
+                    <select class="form-control" id="sel1" name='gender'>
+    <option>Male</option>
+    <option>Female</option>
+  </select>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                            <label  class="col-sm-3 control-label">Country</label>
+                            <select class="form-control" id="sel1" name='country'>
+            <option>India</option>
+            <option>Denmark</option>
+            <option>Pakistan</option>
+            <option>Japan</option>
+            <option>Russia</option>
+            <option>USA</option>
+          </select>
+        </div>
+        <div class="form-group">
+                <label  class="col-sm-3 control-label">Date of Event</label>
+                <div class="col-sm-9">
+                    <input  type="text" id="date" placeholder="MM/DD/YYYY" name='date2' autofocus class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label  class="col-sm-3 control-label">Time</label>
+                <div class="col-sm-9">
+                        <input  type="text" id="time" placeholder="HH:MM:SS" name='time' autofocus class="form-control">
+                        
+                             
+                </div>
+            </div>
+        </div>
+        
+            <div id="site_details">
+                    <div class="form-group">
+                            <label  class="col-sm-3 control-label">Season</label>
+                            <div class="col-sm-9">
+                                <input type="text"  placeholder="Season" class="form-control" id="sname" name="sname" autofocus>
+                            </div>
+                        </div>
+            <div class="form-group">
+                <label  class="col-sm-3 control-label">City</label>
+                <div class="col-sm-9">
+                    <input type="text"  placeholder="City" class="form-control" id="cname" name="cname" autofocus>
+                </div>
+            </div>
+            <div class="form-group">
+                    <label  class="col-sm-3 control-label">Year</label>
+                    <div class="col-sm-9">
+                    <input type="text"  placeholder="Year" class="form-control" id="year" name="year" autofocus>
+                
+                 </div>
+            </div>
+     
+<div class="form-group">
+        <label  class="col-sm-3 control-label" >Sports Name</label>
+        <select class="form-control" id="sel1" name="sportsname">
+<option>Badminton</option>
+<option>Archery</option>
+<option>Wrestling</option>
+<option>Boxing</option>
+<option>Shooting</option>
+
+
+
+</select>
+</div>
+<div class="form-group">
+        <label  class="col-sm-3 control-label" >Medal Type</label>
+        <select class="form-control" id="sel1" name="mtype">
+<option>Gold</option>
+<option>Silver</option>
+<option>Bronze</option>
+<option>No Medal</option>
+</select>
+</div>
+ 
+<div class="form-group">
+        <label  class="col-sm-3 control-label">Venue</label>
+        <div class="col-sm-9">
+                <input type="text"  placeholder="Venue" class="form-control" id="venue" name="venue" autofocus>
+    
+</div>
+        </div>
+        </div>
+            <div class="msg">{{ msg }}</div>
+                <button id='sub'>Submit</button>
+                <a class="btn btn-primary" id="btn-nxt" role="button">Next</a>
+                <a class="btn btn-primary" id="btn-back" role="button">Back</a>
+            </form>
+            <!-- /form -->
+
+  </div>
+        
+
+  
+ 
+
+<div id="preloader">
+  <div id="loader"></div>
+</div>
+
+<script>
+   
+$(window).on("load",function(){
+    $("#preloader").hide();
+});
+</script>
+<script>
+        $(document).ready(function(){
+            $("#site_details").hide();
+            $("#btn-back").hide();
+            $("#sub").hide();
+        
+            
+          $("#btn-nxt").click(function(){
+            $("#profile_details").hide();
+            $("#site_details").show();
+            $("#btn-back").show();
+            $(this).hide();
+        
+            $("#sub").show();
+
+          });
+          $("#btn-back").click(function(){
+            $("#profile_details").show();
+            $("#site_details").hide();
+            $("#btn-back").hide();
+            $("#sub").hide();
+            $("#btn-nxt").show();
+
+          });
+         
+        });
+        </script>
+</body>
+</html>

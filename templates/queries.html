@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../../../favicon.ico">
+    <title>Home</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    
+    <!--Template based on URL below-->
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/starter-template/">
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/master4.css') }}">
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-md navbar-dark fixed-top">
+    <a class="navbar-brand" href="{{url_for('index')}}"><img src="../static/images/logo.png" class="rounded-circle" width="80px" height="70px"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="{{url_for('index')}}">Home<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                    {% if session['loggedin']==True %}
+                    <a class="nav-link" href="{{url_for('logout')}}">Logout</a>
+                    {% else %}
+                    <a class="nav-link" href="{{url_for('login')}}">Login</a>
+                    {% endif %}
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{url_for('view')}}">View Database</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('form')}}">Insert Into Database</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{url_for('team')}}">Team Members</a>
+        </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+            <button class="btn btn-primary btn-md" type="submit">Search</button>
+            
+        </form>
+    </div>
+</nav>
+
+
+
+<div class="image" align="center">
+    <br><br><br><br><br>
+            <form class="form-horizontal" role="form" action="{{url_for('runquery')}}" method='post' >
+            
+                    <h6 class="display-4">SQL Queries</h6><br><br>
+                    <div class="form-group">
+                        <label  class="col-sm-3 control-label">SQL QUERY</label>
+                        <select class="form-control" id="sel1" name='query'>
+        <option value="1">Total No of participants participated in Rio Olympics</option>
+        <option value="2">Total No of Male participated in Rio Olympics</option>
+        <option value="3">Total No of Gold Medalist</option>
+        <option value="4">Name of participants in wrestling who belongs to India</option>
+        <option value="5">Total No of Female participants in badminton from Japan</option>
+        <option value="6">Find the number of participants in each country</option>
+        <option value="7">Select all the participants order by Country Column in ascending order</option>
+        <option value="8">Select all the participants order by Country Column in descending order</option>
+        <option value="9">Select all the participants whose data of birth is between the year 1990 to 1995</option>
+        <option value="10">Select all the participants whose first name starts with "S"</option>
+        <option value="11">Display all the venues of Rio Olympic</option>
+        <option value="12">Display all the Athlete Name of Rio Olympic who won gold medal with Sports Name</option>
+        <option value="13">Display all the sports name and Athlete  First Name which starts at between 12 to 18 on date 18 Aug</option>
+        <option value="14">Display the Country_Code who won the medals</option>
+        <option value="15">Display all the Athelte Name who won the gold and gender is female </option>
+        <option value="16">Display all the Athelte Name whose Venue is Sau Paulo </option>
+        <option value="17">Display all the Sports Name  whose venue is Deodoro</option>
+        <option value="18">Display all the Athlete Name  whose lastname starts with M</option>
+        <option value="19">Display all the Athlete details whose firstname 2nd character is "A"</option>
+        <option value="20">Display all the Schedule details whose venue starts with "S"</option>
+        
+      </select>
+    </div>
+                <br>
+                <br>
+                <table class="table table-bordered">
+                        
+                    <thead>
+                    
+                      <tr>
+                        {%  for item in l %}
+                           
+                        <th>{{ item }}</th>
+                        {% endfor %}
+                      </tr>
+                     
+                    </thead>
+                   
+                    <tbody>
+                     {% for item in n %}
+                      <tr>
+                        {% for i in range(c) %}
+                        <td>{{item[i]}}</td>
+                        
+                        {% endfor %}
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                    </table>
+                <button id='sub'>Submit</button>
+                
+                <br><br>
+                <div id="queries1">Source Code- {{ queries1 }}</div>                
+            </form>      
+
+
+</body>
+</html>
